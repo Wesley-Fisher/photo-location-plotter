@@ -11,3 +11,9 @@ class RunSettings:
 class ConfigSettings:
     def __init__(self, config):
         self.config = config
+
+    def validate(self):
+        keys = self.config.keys()
+
+        if 'photos' not in keys:
+            raise KeyError("'photos' not found in config file")
