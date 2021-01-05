@@ -1,6 +1,6 @@
 import unittest
 
-from photo_location_plotter.run_settings import RunSettings
+from photo_location_plotter.settings import RunSettings
 from photo_location_plotter.file_structure_helper import FileStructureHelper
 
 class TestFileStructureHelper(unittest.TestCase):
