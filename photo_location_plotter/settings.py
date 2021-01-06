@@ -9,11 +9,13 @@ class RunSettings:
         self.app_directory = app_directory
 
 class ConfigSettings:
-    def __init__(self, config):
+    def __init__(self, config, logger):
         self.config = config
+        self.logger = logger
+
 
     def validate(self):
         keys = self.config.keys()
 
-        if 'photos' not in keys:
+        if 'photo_directories' not in keys:
             raise KeyError("'photos' not found in config file")
