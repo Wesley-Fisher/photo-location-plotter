@@ -1,6 +1,10 @@
 import unittest
+import logging
 
-from photo_location_plotter.settings import RunSettings
+from photo_location_plotter.settings import RunSettings, ConfigSettings
+
+from .helper import Helper
+helper = Helper()
 
 class TestRunSettings(unittest.TestCase):
 
@@ -22,3 +26,22 @@ class TestRunSettings(unittest.TestCase):
         direct = 'app_dir'
         rs = RunSettings(['test_run_settings.py', proj], direct)
         self.assertEqual(rs.app_directory, direct)
+
+
+class TestConfigSettings(unittest.TestCase):
+
+    def test_catches_no_directories(self):
+        cs = ConfigSettings({}, helper.logger())
+        try:
+            cs.validate()
+        except KeyError as e:
+            return
+        self.assertTrue(False)
+
+    def test_catches_zero_directories(self):
+        cs = ConfigSettings({'photo_directories': []}, helper.logger())
+        try:
+            cs.validate()
+        except KeyError as e:
+            return
+        self.assertTrue(False)
