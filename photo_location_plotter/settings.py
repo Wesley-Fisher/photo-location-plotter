@@ -18,4 +18,8 @@ class ConfigSettings:
         keys = self.config.keys()
 
         if 'photo_directories' not in keys:
-            raise KeyError("'photos' not found in config file")
+            raise KeyError("'photo_directories' not found in config file")
+        
+        pd = self.config['photo_directories']
+        if pd is None or len(pd) == 0:
+            raise KeyError("No photo_directories found")
