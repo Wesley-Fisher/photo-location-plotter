@@ -30,6 +30,7 @@ class GPSExtractor:
 
     def to_degrees(self, value):
         # borrowed from: https://gist.github.com/snakeye/fdc372dbf11370fe29eb
+        #                https://stackoverflow.com/questions/19804768/interpreting-gps-info-of-exif-data-from-photo-in-python
         d = float(value.values[0].num) / float(value.values[0].den)
         m = float(value.values[1].num) / float(value.values[1].den)
         s = float(value.values[2].num) / float(value.values[2].den)
@@ -40,11 +41,11 @@ class GPSExtractor:
         val = tags.get(key)
         if val:
             val = self.to_degrees(val)
-            if tags.get(ref_key) == flip_ref_val:
+            if str(tags.get(ref_key)) == flip_ref_val:
                 val = -val
         else:
             return None
-        return val
+        return float(val)
 
 
     def get_gps(self, filename):
