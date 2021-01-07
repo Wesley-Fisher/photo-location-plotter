@@ -1,2 +1,9 @@
 photo_directories:
  - $PROJECT/photos
+
+map:
+  in_file: map.png
+  bounds:
+    latitude: [44.67074, 44.67454]
+    longitude: [-63.56463, -63.56199]
+  out_file: map_out.png

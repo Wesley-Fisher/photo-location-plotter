@@ -5,6 +5,7 @@ from .file_structure_helper import FileStructureHelper
 from .settings import ConfigSettings
 from .photo_finder import PhotoFinder
 from .gps_extractor import GPSExtractor
+from .plotter import Plotter
 
 class Application:
     def __init__(self, run_settings):
@@ -37,8 +38,9 @@ class Application:
         points = []
         gps = GPSExtractor(logger=self.logger.getChild("GPSExtractor"))
         for filename in files:
-            print(filename)
             pt = gps.get_gps(filename)
             if pt is not None:
                 points.append(pt)
-        print(points)
+
+        plotter = Plotter(logger=self.logger.getChild("Plotter"))
+        plotter.plot(config_settings, self.file_system, points)
