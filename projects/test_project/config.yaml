@@ -7,3 +7,7 @@ map:
     latitude: [44.67074, 44.67454]
     longitude: [-63.56463, -63.56199]
   out_file: map_out.png
+styling:
+  point_size: 35
+  point_color: 'b'
+  point_alpha: 0.5
