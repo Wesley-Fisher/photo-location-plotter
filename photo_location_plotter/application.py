@@ -4,6 +4,7 @@ import yaml
 from .file_structure_helper import FileStructureHelper
 from .settings import ConfigSettings
 from .photo_finder import PhotoFinder
+from .gps_extractor import GPSExtractor
 
 class Application:
     def __init__(self, run_settings):
@@ -32,3 +33,12 @@ class Application:
 
         photo_finder = PhotoFinder(config_settings, self.file_system, logger=self.logger.getChild("PhotoFinder"))
         files = photo_finder.get_all_files()
+
+        points = []
+        gps = GPSExtractor(logger=self.logger.getChild("GPSExtractor"))
+        for filename in files:
+            print(filename)
+            pt = gps.get_gps(filename)
+            if pt is not None:
+                points.append(pt)
+        print(points)
