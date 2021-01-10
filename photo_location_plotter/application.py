@@ -6,6 +6,7 @@ from .settings import ConfigSettings
 from .photo_finder import PhotoFinder
 from .gps_extractor import GPSExtractor
 from .plotter import Plotter
+from .gps_filter import GPSFilter
 
 class Application:
     def __init__(self, run_settings):
@@ -41,6 +42,11 @@ class Application:
             pt = gps.get_gps(filename)
             if pt is not None:
                 points.append(pt)
+
+        filt = GPSFilter(config_settings.get('regions', {}))
+
+
+        points, unused_points = filt.filter(points)
 
         plotter = Plotter(logger=self.logger.getChild("Plotter"))
         plotter.plot(config_settings, self.file_system, points)
