@@ -28,6 +28,13 @@ class Application:
             except yaml.YAMLError as e:
                 self.logger.exception(e)
 
+    def log_points(self, points, filename):
+        with open(self.file_system.get_project_directory() + "/" + filename, 'w') as file:
+            file.write("LAT, LON\n")
+            for pt in points:
+                file.write("%f, %f\n" % (pt.lat, pt.lon))
+
+
     def run(self):
         config_contents = self.read_yaml(self.file_system.get_config_file_path())
         config_settings = ConfigSettings(config_contents, logger=self.logger.getChild("ConfigSettings"))
@@ -47,6 +54,10 @@ class Application:
 
 
         points, unused_points = filt.filter(points)
+
+        self.log_points(points, 'points_used.txt')
+        self.log_points(unused_points, 'points_unused.txt')
+        
 
         plotter = Plotter(logger=self.logger.getChild("Plotter"))
         plotter.plot(config_settings, self.file_system, points)
