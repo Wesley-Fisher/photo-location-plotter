@@ -6,6 +6,7 @@ from .settings import ConfigSettings
 from .photo_finder import PhotoFinder
 from .gps_extractor import GPSExtractor
 from .plotter import Plotter
+from .gps_filter import GPSFilter
 
 class Application:
     def __init__(self, run_settings):
@@ -27,6 +28,13 @@ class Application:
             except yaml.YAMLError as e:
                 self.logger.exception(e)
 
+    def log_points(self, points, filename):
+        with open(self.file_system.get_project_directory() + "/" + filename, 'w') as file:
+            file.write("LAT, LON\n")
+            for pt in points:
+                file.write("%f, %f\n" % (pt.lat, pt.lon))
+
+
     def run(self):
         config_contents = self.read_yaml(self.file_system.get_config_file_path())
         config_settings = ConfigSettings(config_contents, logger=self.logger.getChild("ConfigSettings"))
@@ -41,6 +49,15 @@ class Application:
             pt = gps.get_gps(filename)
             if pt is not None:
                 points.append(pt)
+
+        filt = GPSFilter(config_settings.config.get('regions', {}), self.logger.getChild("GPSFilter"))
+
+
+        points, unused_points = filt.filter(points)
+
+        self.log_points(points, 'points_used.txt')
+        self.log_points(unused_points, 'points_unused.txt')
+        
 
         plotter = Plotter(logger=self.logger.getChild("Plotter"))
         plotter.plot(config_settings, self.file_system, points)
