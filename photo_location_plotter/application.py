@@ -43,7 +43,7 @@ class Application:
             if pt is not None:
                 points.append(pt)
 
-        filt = GPSFilter(config_settings.get('regions', {}))
+        filt = GPSFilter(config_settings.config.get('regions', {}), self.logger.getChild("GPSFilter"))
 
 
         points, unused_points = filt.filter(points)

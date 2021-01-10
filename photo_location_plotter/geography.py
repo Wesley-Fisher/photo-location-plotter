@@ -39,7 +39,7 @@ class GeographyRegion:
             self.regions.append(SimpleGeographyRegion(lon_2, lat_range))
     
     def contains(self, lon, lat):
-        return any(self.regions.contains(lon, lat))
+        return any([r.contains(lon, lat) for r in self.regions])
 
     @staticmethod
     def from_dict(config):
