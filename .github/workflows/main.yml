@@ -26,6 +26,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Install SetupTools
+        run: sudo apt-get install setuptools
+
       - name: Install Dependencies
         run: python3 -m pip install -r pip3_requirements.txt
 
