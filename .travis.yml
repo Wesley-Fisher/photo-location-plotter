@@ -7,7 +7,6 @@ stages:
   - setup
   - test
 jobs:
-  include:
     - stage: setup
       install:
         - python3 -m pip install -r pip3_requirements.txt
