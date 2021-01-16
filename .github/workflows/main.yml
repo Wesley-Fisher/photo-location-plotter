@@ -34,3 +34,14 @@ jobs:
 
       - name: Run Unit Tests
         run: python3 -m unittest
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Docker Login
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Pull Image
+        run: docker pull ${{DOCKERHUB_REPO}}/photo-location-plotter:latest
