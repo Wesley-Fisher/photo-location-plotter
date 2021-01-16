@@ -45,3 +45,19 @@ jobs:
 
       - name: Pull Image
         run: docker pull ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest
+
+      - name: Build Image
+        run: |
+            cd docker
+            docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ..
+
+      - name: Test in Image
+        run: |
+            cd docker
+            make test
+            make project PROJECT=test_project
+      
+      - name: Push Image
+        run: |
+            cd docker
+            docker push ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest
