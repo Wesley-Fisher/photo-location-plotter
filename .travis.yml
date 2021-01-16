@@ -5,9 +5,8 @@ python:
 
 jobs:
   include:
-    -stage: install
-     install:
-       - pip install -r pip3_requirements.txt
+    - stage: setup
+      install: pip install -r pip3_requirements.txt
     - stage: test
       script:
         - python3 -m unittest
