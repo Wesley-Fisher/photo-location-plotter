@@ -1,21 +1,21 @@
-
 language: python
 python:
-  - "3.5"
-  - "3.6"
+- '3.5'
+- '3.6'
 stages:
-  - test
-  - docker
-
+- test
+- docker
 install:
-  - python3 -m pip install -r pip3_requirements.txt
+- python3 -m pip install -r pip3_requirements.txt
 script:
-  - python3 -m unittest
-
-
+- python3 -m unittest
 jobs:
   include:
-    - stage: docker
-      install:
-      script: echo "Skip script"
-      
+  - stage: docker
+    install: 
+    script: echo "Skip script"
+env:
+  global:
+  - secure: 6R+Eid/pBtlPkR9u2jLkLwO1J7N4f9sjKcx6JYBCQIKGYH/GJGfyNYywT08PAuk5NSzQKQNJ6qNaC5rBBbL/r+HabCVQ1zHpmBdjLn70wqNeS5WJieKllkBt/PjC5mnH1mG0N1IpPbtibtM6vzvl23by58R/Zt3t9Ia/sguGhxwFjd5g5/VJh9bhOnUfXNKUe3bu4cHpBf319BXtwvEOlZmrPuFelHtEwwMeIH1TUR6INCdWrOFT7h3jNpmVayC8/Z2SQroH5Uu3nWjb4HDRMgkBajF8U5TVDS5xl2fCp1UjW4sS7Hr4NH+xze7gmBTwWVrHndeSlLJWmRc/XI+y5p8jUFZM87N1VU8+T/OEvE70VvyGNcYVbgUIRx1b6HKYAsqlDvGvGUrDttSjDuWBK92kc7M6dHxUqLydz+U9pxmaV6iSdKr4NWz9JEEMKbsiJHfxABs8298JGuZPdPwupwPNUBBts1CB3oW1OEvhiEosnOC8OJPPu+RlJm2VS7DNYUlDFTpUPzgcjkjZWEoqmZ6QThyEn/UF2IWhTzdqy4Kq6wF6KL9C3AL8hpHyYMT8iDqijKynJ3FGu7WzaBl1XAMi9osnnuun/9nvEOEVuAcRRUBI0y36UJX90JxhmNhHud6NNDqpkQlHZu8W7nngEDv8TySC8n408254J431JMo=
+  - secure: enOQTAYq9xvOMHpJKs+KBs/f4lP0UwLnSIMyryM3N4asjDHK1Q3ENOHuimLCMwndj8tciPRpkmm1LzeniArJAZtyZp1KrJPvVLHnes9oyJcxr1AIFz0U70TINzmUK8gWmeZKoLkoC3+ifsGY9oQHbEQC5m08zE+LRpsrzilr6oP0kHHpK7bs0uKcCl8CNQZ72bkqZBLudLCOuqV+t58zetUab32JxDRGVomw/H2RUvrFXwcrh1r8hU/qbGvXRkHBxpsRTFOre0lkETH2IBtHcdfOZvBl5YK0GluhiP1y9PkblsAtzZssEjvv5jJK4h+KPA13U6TLJwrqlNBuNP0Tlq/TTTCRMyvJAyo1QW5fETEMaTPy+8Co5887ichyuHc5q6LviHSbmHvs3c05AnGxshw1mRBqXWIiGC8vdSBVPiBYc+nlqTp/zfqyHnw6uO72HXsXMGOmdP8nMmXZ6XFUr3EcS1xQuD2pWPVJVEXdMG8vPu50YmmYROyMj9xOBUcJjPIhRLh5DKdEY2o+I3ydwWZ7xC0FLgbiu3LC9XTcEubI+6m+eN+OgpY2wNRfSqDb2nNWG0SX46v4pgT78vv1Qvj+GcPMKWulZU+1DXRoGuulv1dbLOmJ3xFbNLYXbZL6UcFqY5dEmuqUbTdnSfvz4qqdVQhJ229TaZp0lOb4RVw=
+  - secure: z00P2R6n9XzamfigzhNQ8Y+x9fYsax4ZN6aU7rWTKwRzYb0n0GknHt3BUbSPXM4L4bsXJ9cvO/AoJ1b3Gqm6Jynud8qRecWUpBE1139N+78aaZvI0ydtmdrnCG/cQmHoqTzwO90MCH2P92cXWRZwRz8NdFN/0KswtVfpiGuWaPY2phVH+D09J72FI4j3VW4qSPSywxRFxNlzfmSyRybsrlXmUDYW80IJOB/9utTnp6ar/TwxWfxhRu2MzWrPw1OZ0kbK7pnaiZtK6Ady5tjXGnjObHZf8gvZMCuZn1ujw93AnN1YfbzgMyV/2JWS5FwotoGTDrr5kvI8EZOmBaOvU8gOCAmbKcTjrprLpl8DqoRSr75miXQRD36q+ho7ADTuDgjbnSfduYGKE5vu0aXrtcUeOxvamEZRum0oZ0qzOt3IILRKdhHxIBImJcH/A7A0qCptWaW2gkYevp1ZOYPFF0m0WGcPzYfR1JC3t8RSfnlWDOomDPI7+VXEqSKpL33u06oFaASErhMtO9/R/5+Dzc06D68xJupY1OeRRDN+kA2UPZjszJtqPWCz2H8I0zljVy7qqMxg6O54DNIhfse3j0flYUWU5LFz89JY6J1u3FFWnVlfJVnyiBX0qSIFwe7IW0yYnlcguTBV2yjjpp2FkBaCMuuAgHZqD3/HMK8RPZI=
