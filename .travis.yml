@@ -1,8 +1,13 @@
-# Original Example From: https://docs.travis-ci.com/user/languages/python/
+
 language: python
 python:
-  - "3.6"      # current default Python on Travis CI
-install:
-  - pip install -r pip3_requirements.txt
-script:
-  - python3 -m unittest
+  - "3.6"
+
+jobs:
+  include:
+    -stage: install
+     install:
+       - pip install -r pip3_requirements.txt
+    - stage: test
+      script:
+        - python3 -m unittest
