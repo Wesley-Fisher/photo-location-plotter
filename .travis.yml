@@ -1,13 +1,15 @@
 
 language: python
 python:
+  - "3.5"
   - "3.6"
 
 jobs:
   include:
     - stage: setup
-      script:
-        - pip install -r pip3_requirements.txt
+      install:
+        - python3 -m pip install -r pip3_requirements.txt
+      script: echo "Skip script"
     - stage: test
       script:
         - python3 -m unittest
