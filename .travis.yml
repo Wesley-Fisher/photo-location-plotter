@@ -14,12 +14,16 @@ jobs:
   - stage: docker
     install:
       - docker login -u "$DOCKER_USERNAME" -p"$DOCKER_PASSWORD"
-      - docker pull $DOCKER_REPO/photo-location-plotter:latest
+      - docker pull "$DOCKER_REPO"/photo-location-plotter:latest
+    '''
     script:
-      - cd docker && docker build -t photo_location_plotter:latest -t $DOCKER_REPO/photo-location-plotter:latest -f Dockerfile.Ubuntu ..
-      - cd docker && make project PROJECT=test_project
+      - cd docker && docker build -t photo_location_plotter:latest -t "$DOCKER_REPO"/photo-location-plotter:latest -f Dockerfile.Ubuntu ..
+      - make project PROJECT=test_project
     deploy:
-      - docker push $DOCKER_REPO/photo-location-plotter:latest
+      - docker push "$DOCKER_REPO"/photo-location-plotter:latest
+    '''
+    script: true
+    deploy: true
 env:
   global:
   - secure: 6R+Eid/pBtlPkR9u2jLkLwO1J7N4f9sjKcx6JYBCQIKGYH/GJGfyNYywT08PAuk5NSzQKQNJ6qNaC5rBBbL/r+HabCVQ1zHpmBdjLn70wqNeS5WJieKllkBt/PjC5mnH1mG0N1IpPbtibtM6vzvl23by58R/Zt3t9Ia/sguGhxwFjd5g5/VJh9bhOnUfXNKUe3bu4cHpBf319BXtwvEOlZmrPuFelHtEwwMeIH1TUR6INCdWrOFT7h3jNpmVayC8/Z2SQroH5Uu3nWjb4HDRMgkBajF8U5TVDS5xl2fCp1UjW4sS7Hr4NH+xze7gmBTwWVrHndeSlLJWmRc/XI+y5p8jUFZM87N1VU8+T/OEvE70VvyGNcYVbgUIRx1b6HKYAsqlDvGvGUrDttSjDuWBK92kc7M6dHxUqLydz+U9pxmaV6iSdKr4NWz9JEEMKbsiJHfxABs8298JGuZPdPwupwPNUBBts1CB3oW1OEvhiEosnOC8OJPPu+RlJm2VS7DNYUlDFTpUPzgcjkjZWEoqmZ6QThyEn/UF2IWhTzdqy4Kq6wF6KL9C3AL8hpHyYMT8iDqijKynJ3FGu7WzaBl1XAMi9osnnuun/9nvEOEVuAcRRUBI0y36UJX90JxhmNhHud6NNDqpkQlHZu8W7nngEDv8TySC8n408254J431JMo=
