@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install SetupTools
-        run: sudo apt update && sudo apt-get install setuptools
+        run: sudo apt update && sudo apt-get install python3-setuptools
 
       - name: Install Dependencies
         run: python3 -m pip install -r pip3_requirements.txt
