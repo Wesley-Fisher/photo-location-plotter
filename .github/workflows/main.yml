@@ -50,7 +50,7 @@ jobs:
       - name: Build Image
         run: |
             cd docker/ubuntu
-            docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ..
+            docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ../..
 
       - name: Test in Image
         run: |
