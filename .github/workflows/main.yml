@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  test-ubuntu:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     strategy:
@@ -34,8 +34,8 @@ jobs:
 
       - name: Run Unit Tests
         run: python3 -m unittest
-  docker:
-    needs: build
+  docker-ubuntu:
+    needs: test-ubuntu
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -49,16 +49,16 @@ jobs:
 
       - name: Build Image
         run: |
-            cd docker
+            cd docker/ubuntu
             docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ..
 
       - name: Test in Image
         run: |
-            cd docker
+            cd docker/ubuntu
             make test
             make project PROJECT=test_project
       
       - name: Push Image
         run: |
-            cd docker
+            cd docker/ubuntu
             docker push ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest
