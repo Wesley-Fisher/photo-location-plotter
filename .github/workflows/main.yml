@@ -13,13 +13,11 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  test-ubuntu:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,8 +32,8 @@ jobs:
 
       - name: Run Unit Tests
         run: python3 -m unittest
-  docker:
-    needs: build
+  docker-ubuntu:
+    needs: test-ubuntu
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -49,16 +47,35 @@ jobs:
 
       - name: Build Image
         run: |
-            cd docker
-            docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ..
+            cd docker/ubuntu
+            docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ../..
 
       - name: Test in Image
         run: |
-            cd docker
+            cd docker/ubuntu
             make test
             make project PROJECT=test_project
       
       - name: Push Image
         run: |
-            cd docker
+            cd docker/ubuntu
             docker push ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest
+  test-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: python -m pip install -r pip3_requirements.txt
+
+      - name: Run Unit Tests
+        run: python -m unittest
+
+      - name: Test project
+        run: python run.py test_project
