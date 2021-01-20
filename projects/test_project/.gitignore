@@ -1,4 +1,7 @@
-log.txt
-points_used.txt
-points_unused.txt
-map_out.png
+*
+!.gitignore
+!photos
+!photos/*
+!photos/**
+!config.yaml
+!map.png
