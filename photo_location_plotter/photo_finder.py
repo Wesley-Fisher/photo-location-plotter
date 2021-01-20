@@ -5,7 +5,7 @@ class PhotoFinder:
         self.config = config
         self.logger = logger
         self.file_system_helper = file_system_helper
-        self.file_types = ['.jpg', '.JPG', '.mp4']
+        self.file_types = ['.jpg', '.JPG', '.mp4', '.MP4']
 
     def get_all_files(self):
         directories = self.get_directories()
