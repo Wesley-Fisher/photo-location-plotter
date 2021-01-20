@@ -2,7 +2,9 @@
 
 ![Testing](https://github.com/Wesley-Fisher/photo-location-plotter/workflows/CI/badge.svg)
 
-This is a small project that came out of a family project I worked on. It's purpose is to go through photos in a directory on your computer, and plot their GPS locations on a given map. The result is a map picture that highlights the locations of all the pictures - this approach was perfect for a map of a family vacation a few years ago.
+This is a small project that came out of a family project I worked on. It's purpose is to go through photos in a directory on your computer, and plot their GPS locations on a given map. The result is a map picture that highlights the locations of all the pictures - this approach was perfect for a map of a family vacation a few years ago:
+
+![Pictures taken on vacation](.github/media/hawaii_pic.png)
 
 
 # How to Use
