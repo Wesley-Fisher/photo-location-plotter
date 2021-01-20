@@ -16,9 +16,9 @@ class GPSExtractor:
         self.LON_REF_KEY = 'GPS GPSLongitudeRef'
 
     def get_file_info(self, filename):
-        if '.jpg' in filename:
+        if '.jpg' in filename or '.JPG' in filename:
             return self.get_file_info_exifread(filename)
-        if '.mp4' in filename:
+        if '.mp4' in filename or '.MP4' in filename:
             return self.get_file_info_exifread(filename)
         return {}
 
