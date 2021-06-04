@@ -19,14 +19,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Docker Login
+      - name: Pull Image
         uses: docker/login-action@v1
         with:
           registry: docker.pkg.github.com
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Pull Image
         run: docker pull ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest
 
       - name: Build Image
@@ -35,6 +33,11 @@ jobs:
             docker build -t photo_location_plotter:latest -t ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest --cache-from ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter -f Dockerfile.Ubuntu ../..
       
       - name: Push Image
+        uses: docker/login-action@v1
+        with:
+          registry: docker.pkg.github.com
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
             cd docker/ubuntu
             docker push ${{ secrets.DOCKERHUB_REPO }}/photo-location-plotter:latest
