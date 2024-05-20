@@ -9,38 +9,31 @@ from .plotter import Plotter
 from .gps_filter import GPSFilter
 
 class Application:
-    def __init__(self, run_settings):
-        self.run_settings = run_settings
-        self.file_system = FileStructureHelper(self.run_settings)
+    def __init__(self, project_file, project_settings):
+        self.project_directory = '/'.join(project_file.replace('\\', '/').split('/')[0:-1])
+        self.project_name = project_settings['name']
 
         logging.basicConfig(format='%(levelname)s:  %(message)s',
-                            filename=self.file_system.get_project_directory()+"/log.txt",
+                            filename= self.project_directory + "/log.txt",
                             filemode='w',
                             level=logging.DEBUG)
         self.logger = logging.getLogger("App")
-        self.logger.info(self.file_system.get_project_directory())
-        self.logger.info("project: %s", self.run_settings.project)
-
-    def read_yaml(self, filepath):
-        with open(filepath, 'r') as f:
-            try:
-                return yaml.safe_load(f)
-            except yaml.YAMLError as e:
-                self.logger.exception(e)
+        self.logger.info(project_file)
+        self.logger.info("project: %s", project_settings['name'])
+        self.settings = project_settings
 
     def log_points(self, points, filename):
-        with open(self.file_system.get_project_directory() + "/" + filename, 'w') as file:
+        with open(filename, 'w') as file:
             file.write("LAT, LON\n")
             for pt in points:
                 file.write("%f, %f\n" % (pt.lat, pt.lon))
 
-
     def run(self):
-        config_contents = self.read_yaml(self.file_system.get_config_file_path())
+        config_contents = self.settings
         config_settings = ConfigSettings(config_contents, logger=self.logger.getChild("ConfigSettings"))
         config_settings.validate()
 
-        photo_finder = PhotoFinder(config_settings, self.file_system, logger=self.logger.getChild("PhotoFinder"))
+        photo_finder = PhotoFinder(config_settings, logger=self.logger.getChild("PhotoFinder"))
         files = photo_finder.get_all_files()
 
         points = []
@@ -55,9 +48,9 @@ class Application:
 
         points, unused_points = filt.filter(points)
 
-        self.log_points(points, 'points_used.txt')
-        self.log_points(unused_points, 'points_unused.txt')
+        self.log_points(points, self.project_directory + '/' + self.project_name + '_points_used.txt')
+        self.log_points(unused_points, self.project_directory + '/' + self.project_name + '_points_unused.txt')
         
 
         plotter = Plotter(logger=self.logger.getChild("Plotter"))
-        plotter.plot(config_settings, self.file_system, points)
+        plotter.plot(config_settings, points)

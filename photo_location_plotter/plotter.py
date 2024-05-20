@@ -4,8 +4,8 @@ class Plotter:
     def __init__(self, logger):
         self.logger = logger
 
-    def plot(self, config, file_system_helper, points):
-        in_file = file_system_helper.get_project_directory() + "/" + config.config['map']['in_file']
+    def plot(self, config, points):
+        in_file = config.config['map']['in_file']
 
         background = plt.imread(in_file)
 
@@ -31,7 +31,7 @@ class Plotter:
 
         plt.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0)
 
-        ax.imshow(background, zorder=0, extent=BBox, aspect='equal')
-        out_file = file_system_helper.get_project_directory() + "/" + config.config['map']['out_file']
+        ax.imshow(background, zorder=0, extent=BBox, aspect='auto')
+        out_file = config.config['map']['out_file']
 
         plt.savefig(out_file, dpi=800, bbox_inches='tight', pad_inches=0.1)
