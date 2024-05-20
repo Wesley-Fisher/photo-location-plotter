@@ -1,0 +1,24 @@
+projects: 
+  - name: TestProject
+    photo_directories:
+     - <location>/test_project/photos
+
+    map:
+      in_file: <location>/test_project/map.png
+      bounds:
+        latitude: [44.67074, 44.67454]
+        longitude: [-63.56463, -63.56199]
+      out_file: <location>/test_project/map_out.png
+    styling:
+      point_size: 35
+      point_color: 'b'
+      point_alpha: 0.5
+    regions:
+      include_regions:
+        - some_name:
+          longitude: [-63.56463, -63.56199]
+          latitude: [44.67074, 44.67454]
+      exclude_regions:
+        - some_name:
+          longitude: [-63.56463, -63.564]
+          latitude: [44.67074, 44.67454]

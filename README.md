@@ -9,28 +9,22 @@ This is a small project that came out of a family project I worked on. It's purp
 
 # How to Use
 
-1.  Install Requirements
-2.  Create a folder for your 'project'
+1.  Install Requirements (Pipfile provided)
 3.  Download a map file as an image
-4.  Create a settings file
+4.  Create a config file for your map
 5.  Run
 
 
 ## Requirements
 
-First of all, this code will need to be downloaded.
+This code was most recently run on Python 3.12.3. A Pipenv environment can be used (example commands will need to be modified to use pipenv if that is the case).
 
-This code works using Python, and is tested on versions 3.5-3.9 on both Windows and Ubuntu. On both of these operating systems, you can open a command prompt, and run `pip install -r pip3_requirements.txt` in this directory. This should install all of the code needed.
+### Test Project Test
 
-You can run the command `python run.py test_project` in this directory to run tests and ensure everything is installed. If it works, you will see a `map_out.png` file under `projects/test_project/`
+Within the `test_project/config.yaml` file, complete the entries for the full paths of the `test_project/photos` folder and the `map_in` and `map_out` entries where the placeholder entries are.
 
+Run the command `python run.py <path to test_project/config.yaml>` tests and ensure everything is installed. If it works, you will see a `map_out.png` file under `test_project/`
 
-## Folder
-
-The term for each map image you would like to create is a project. These are stored as folders in the 'projects' directory. Create a folder there. The name should:
-
-1. Be easy to type/use, such as `family_vacation_2010`. You will need to enter the name in other locations.
-2. Not contain spaces. Underscores make a good replacement. Avoid special characters.
 
 ## Download a Map File
 
@@ -42,11 +36,17 @@ OpenStreetMap currently (as of Jan 2021) has Both a 'Share' and an 'Export' func
 
 Within the directory you created, create a file called `config.yaml`. This file will tell the program information that is needed.
 
-The current (as of Jan 2021) file for `test_project` is:
+The term used for each map image you would like to create is a project. A config file can have one or more projects in it. Each project should have a `name` entry set. The name should:
+
+1. Be easy to type/use, such as `family_vacation_2010`. You will need to enter the name in other locations.
+2. Not contain spaces. Underscores make a good replacement. Avoid special characters.
+
+
+The current format for a project (ie: within it's entry under `projects`) is:
 
 ```
 photo_directories:
- - $PROJECT/photos
+ - <list>
 
 map:
   in_file: map.png
@@ -95,6 +95,6 @@ You will need to fill out the values for your project. The meaning of each of th
 
 ## Run
 
-In a command prompt, run `python run.py your_project_name_here`. If you also (still) have a python2 version installed, you may need to use `python3` instead.
+In a command prompt, run `python run.py path_to_config_file`.
 
 You should see an image generated in your project folder with points plotted.
